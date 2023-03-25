@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>learning_strategy.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h2 id="day-1-introduction-to-python">Day 1: Introduction to Python</h2>
+<ul>
+<li>Install Python and an integrated development environment (IDE) of your choice</li>
+<li>Learn about Python syntax and basic data types (strings, integers, floats, and booleans)</li>
+<li>Complete 10 simple programming exercises using basic data types</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that takes in a sentence and returns the number of vowels in the sentence.</li>
+<li>Write a Python program that prints out the first 50 prime numbers.</li>
+<li>Write a Python program that takes in a list of numbers and returns the sum of all even numbers in the list.</li>
+<li>Write a Python program that takes in a list of words and returns a new list with only the words that contain the letter &quot;a&quot;.</li>
+<li>Write a Python program that takes in a list of numbers and returns a new list with only the prime numbers.</li>
+</ol>
+<h2 id="day-2-conditionals-and-loops">Day 2: Conditionals and Loops</h2>
+<ul>
+<li>Learn about conditional statements (if/else) and loops (for/while)</li>
+<li>Complete 10 programming exercises using conditionals and loops</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that takes in a list of numbers and returns the largest number in the list.</li>
+<li>Write a Python program that takes in a sentence and returns the number of words in the sentence.</li>
+<li>Write a Python program that takes in a list of numbers and returns the product of all the numbers in the list.</li>
+<li>Write a Python program that takes in a list of words and returns a new list with only the words that start with a capital letter.</li>
+<li>Write a Python program that takes in a list of numbers and returns a new list with only the odd numbers.</li>
+</ol>
+<h2 id="day-3-functions">Day 3: Functions</h2>
+<ul>
+<li>Learn about functions and how to define and call them in Python</li>
+<li>Complete 10 programming exercises using functions</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that takes in a list of numbers and returns the median of the list.</li>
+<li>Write a Python program that takes in a sentence and returns the sentence with the words in reverse order.</li>
+<li>Write a Python program that takes in a list of numbers and returns the difference between the largest and smallest number in the list.</li>
+<li>Write a Python program that takes in a list of words and returns a new list with only the words that end with the letter &quot;s&quot;.</li>
+<li>Write a Python program that takes in a list of numbers and returns a new list with the numbers sorted in descending order.</li>
+</ol>
+<h2 id="day-4-lists-and-tuples">Day 4: Lists and Tuples</h2>
+<ul>
+<li>Learn about lists and tuples in Python</li>
+<li>Complete 10 programming exercises using lists and tuples</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that takes in a list of numbers and returns the second largest number in the list.</li>
+<li>Write a Python program that takes in a list of words and returns the longest word in the list.</li>
+<li>Write a Python program that takes in two lists of numbers and returns a new list with only the common numbers in both lists.</li>
+<li>Write a Python program that takes in a list of words and returns a new list with the words sorted in alphabetical order.</li>
+<li>Write a Python program that takes in a list of numbers and returns a new list with each number squared.</li>
+</ol>
+<h2 id="day-5-dictionaries">Day 5: Dictionaries</h2>
+<ul>
+<li>Learn about dictionaries in Python</li>
+<li>Complete 10 programming exercises using dictionaries</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that takes in a list of words and returns a dictionary with the number of times each word appears in the list.</li>
+<li>Write a Python program that takes ina dictionary and returns a new dictionary with the keys and values swapped.</li>
+<li>Write a Python program that takes in two dictionaries and returns a new dictionary with the keys and values combined.</li>
+<li>Write a Python program that takes in a dictionary and returns a new dictionary with only the keys that start with the letter &quot;a&quot;.</li>
+<li>Write a Python program that takes in a list of dictionaries and returns a new list with the dictionaries sorted by the value of a specified key.</li>
+</ol>
+<h2 id="day-6-file-input-and-output">Day 6: File Input and Output</h2>
+<ul>
+<li>Learn about reading and writing files in Python</li>
+<li>Complete 10 programming exercises using file input and output</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that reads in a file and returns the number of words in the file.</li>
+<li>Write a Python program that reads in a file and returns the longest word in the file.</li>
+<li>Write a Python program that reads in two files and writes a new file with the contents of both files combined.</li>
+<li>Write a Python program that reads in a file and returns a dictionary with the number of times each word appears in the file.</li>
+<li>Write a Python program that reads in a file and prints out the words in the file in alphabetical order.</li>
+</ol>
+<p>Day 7: Sets</p>
+<ul>
+<li>Learn about sets in Python</li>
+<li>Complete 10 programming exercises using sets</li>
+</ul>
+<p>Difficult Tasks:</p>
+<ol>
+<li>Write a Python program that takes in two sets of numbers and returns a new set with only the common numbers in both sets.</li>
+<li>Write a Python program that takes in a list of numbers and returns a set with the unique numbers in the list.</li>
+<li>Write a Python program that takes in two sets of words and returns a new set with only the common words in both sets.</li>
+<li>Write a Python program that takes in a set of numbers and returns the sum of all the numbers in the set.</li>
+<li>Write a Python program that takes in a list of words and returns a new set with the unique letters in all the words.</li>
+</ol>
+<h2 id="day-8-object-oriented-programming-basics">Day 8: Object-Oriented Programming Basics</h2>
+<ul>
+<li>Learn about classes, objects, and methods in Python</li>
+<li>Complete 10 programming exercises using OOP basics</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that defines a class for a car and includes methods for accelerating and braking the car.</li>
+<li>Write a Python program that defines a class for a bank account and includes methods for depositing and withdrawing money.</li>
+<li>Write a Python program that defines a class for a book and includes methods for getting the title, author, and number of pages.</li>
+<li>Write a Python program that defines a class for a person and includes methods for getting the name, age, and gender of the person.</li>
+<li>Write a Python program that defines a class for a rectangle and includes methods for calculating the area and perimeter of the rectangle.</li>
+</ol>
+<h2 id="day-9-inheritance-and-polymorphism">Day 9: Inheritance and Polymorphism</h2>
+<ul>
+<li>Learn about inheritance and polymorphism in Python</li>
+<li>Complete 10 programming exercises using inheritance and polymorphism</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that defines a class for a vehicle and includes methods for accelerating and braking. Define a subclass for a car that includes a method for opening the doors.</li>
+<li>Write a Python program that defines a class for a shape and includes methods for calculating the area and perimeter. Define subclasses for a rectangle and a circle that override the methods to calculate their respective areas and perimeters.</li>
+<li>Write a Python program that defines a class for a pet and includes methods for getting the name and species of the pet. Define subclasses for a dog and a cat that override the method for getting the species to return &quot;dog&quot; or &quot;cat&quot;, respectively.</li>
+<li>Write a Python program that defines a class for a person and includes methods for getting the name, age, and gender. Definea subclass for a student that includes a method for getting the student's grade point average.</li>
+<li>Write a Python program that defines a class for a shape and includes methods for calculating the area and perimeter. Define a subclasses for a square and a rectangle that inherit from the shape class and include methods for calculating the area and perimeter specific to their shapes.</li>
+</ol>
+<h2 id="day-10-advanced-oop-concepts">Day 10: Advanced OOP Concepts</h2>
+<ul>
+<li>Learn about advanced OOP concepts such as abstract classes, interfaces, and decorators in Python</li>
+<li>Complete 10 programming exercises using advanced OOP concepts</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that defines an abstract class for a shape and includes abstract methods for calculating the area and perimeter. Define subclasses for a rectangle and a circle that implement the abstract methods.</li>
+<li>Write a Python program that defines an interface for a logger and includes methods for logging information. Define a class that implements the interface and includes a decorator that logs information before and after each method call.</li>
+<li>Write a Python program that defines a class for a bank account and includes methods for depositing and withdrawing money. Define a subclass for a savings account that includes a method for calculating interest and a decorator that logs information before and after each method call.</li>
+<li>Write a Python program that defines a class for a vehicle and includes methods for accelerating and braking. Define a subclass for a bike that includes a method for pedaling and a decorator that logs information before and after each method call.</li>
+<li>Write a Python program that defines a class for a shape and includes methods for calculating the area and perimeter. Define a subclass for a triangle that includes a method for calculating the area using Heron's formula and a decorator that logs information before and after each method call.</li>
+</ol>
+<h2 id="day-11-file-handling">Day 11: File Handling</h2>
+<ul>
+<li>Learn how to read and write files in Python using built-in functions and libraries</li>
+<li>Practice reading and writing to files with 10 programming exercises</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that reads a CSV file containing customer data and outputs a report showing the total revenue, number of orders, and average order value.</li>
+<li>Write a Python program that reads a text file containing a list of numbers and calculates the sum, mean, and standard deviation.</li>
+<li>Write a Python program that reads a JSON file containing product data and outputs a report showing the top-selling products, the average rating, and the total revenue generated.</li>
+<li>Write a Python program that reads a binary file containing image data and outputs a thumbnail image.</li>
+<li>Write a Python program that reads a log file containing server data and outputs a report showing the number of requests, the average response time, and the percentage of successful requests.</li>
+</ol>
+<h2 id="day-12-regular-expressions">Day 12: Regular Expressions</h2>
+<ul>
+<li>Learn about regular expressions and their use cases in Python</li>
+<li>Practice working with regular expressions in 10 programming exercises</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that uses regular expressions to extract email addresses from a text file.</li>
+<li>Write a Python program that uses regular expressions to validate whether a given string is a valid URL.</li>
+<li>Write a Python program that uses regular expressions to extract phone numbers from a CSV file.</li>
+<li>Write a Python program that uses regular expressions to remove HTML tags from a web page.</li>
+<li>Write a Python program that uses regular expressions to extract dates from a text file and convert them to a different format.</li>
+</ol>
+<h2 id="day-13-error-handling">Day 13: Error Handling</h2>
+<ul>
+<li>Learn about error handling in Python and how to handle different types of errors</li>
+<li>Practice error handling in 10 programming exercises</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that handles exceptions raised by a user-defined function and logs the errors to a file.</li>
+<li>Write a Python program that handles exceptions raised by a third-party library and displays a custom error message.</li>
+<li>Write a Python program that handles exceptions raised by file I/O operations and prompts the user to enter a valid file path.</li>
+<li>Write a Python program that handles exceptions raised by network operations and retries the operation after a specified delay.</li>
+<li>Write a Python program that handles exceptions raised by database operations and rolls back the transaction if an error occurs.</li>
+</ol>
+<h2 id="day-14-multithreading">Day 14: Multithreading</h2>
+<ul>
+<li>Learn about multithreading in Python and how to use the threading module</li>
+<li>Practice multithreading with 10 programming exercises</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that uses multithreading to download multiple files simultaneously and displays the progress for each download.</li>
+<li>Write a Python program that uses multithreading to process a large CSV file and outputs the results to a text file.</li>
+<li>Write a Python program that uses multithreading to calculate the prime numbers within a given range and displays the results in real-time.</li>
+<li>Write a Python program that uses multithreading to encrypt and decrypt a file and measures the performance improvement over single-threaded operations.</li>
+<li>Write a Python program that uses multithreading to download multiple web pages and extract information from them concurrently.</li>
+</ol>
+<h2 id="day-15-multithreading-and-multiprocessing">Day 15: Multithreading and Multiprocessing</h2>
+<ul>
+<li>Learn about multithreading and multiprocessing in Python</li>
+<li>Practice using threads and processes in 10 programming exercises</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that uses multithreading to perform multiple tasks simultaneously, such as downloading files and processing data.</li>
+<li>Write a Python program that uses multiprocessing to perform computationally intensive tasks, such as image processing or machine learning.</li>
+<li>Write a Python program that creates a multithreaded server that handles incoming client connections and processes requests in parallel.</li>
+<li>Write a Python program that creates a multiprocessing pool that distributes tasks across multiple processes, optimizing performance for CPU-bound tasks.</li>
+<li>Write a Python program that combines multithreading and multiprocessing to create a high-performance application that can handle multiple concurrent requests and process them efficiently.</li>
+</ol>
+<h2 id="day-16-networking">Day 16: Networking</h2>
+<ul>
+<li>Learn about networking in Python and how to use the socket module</li>
+<li>Practice networking with 10 programming exercises</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that creates a TCP server and handles incoming client connections, sending and receiving messages.</li>
+<li>Write a Python program that creates a UDP server and handles incoming client connections, sending and receiving messages.</li>
+<li>Write a Python program that uses the requests library to send HTTP requests and receive responses from a web server.</li>
+<li>Write a Python program that uses the ftplib library to upload and download files to an FTP server.</li>
+<li>Write a Python program that uses the smtplib library to send emails through a SMTP server.</li>
+</ol>
+<h2 id="day-17-web-development-with-flask">Day 17: Web Development with Flask</h2>
+<ul>
+<li>Learn about web development in Python using the Flask framework</li>
+<li>Practice creating web applications with Flask in 10 programming exercises</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that creates a simple Flask application that displays a list of products with prices and ratings.</li>
+<li>Write a Python program that creates a Flask application that allows users to register and login, and displays a dashboard with user-specific information.</li>
+<li>Write a Python program that creates a Flask application that integrates with a third-party API and displays relevant data to the user.</li>
+<li>Write a Python program that creates a Flask application that allows users to upload and download files securely.</li>
+<li>Write a Python program that creates a Flask application that integrates with a database and allows users to perform CRUD operations on data.</li>
+</ol>
+<h2 id="day-18-web-scraping-with-beautifulsoup">Day 18: Web Scraping with BeautifulSoup</h2>
+<ul>
+<li>Learn about web scraping in Python using the BeautifulSoup library</li>
+<li>Practice web scraping with 10 programming exercises</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that uses BeautifulSoup to scrape data from a website and outputs the results to a CSV file.</li>
+<li>Write a Python program that uses BeautifulSoup to scrape data from a website and inserts the results into a database.</li>
+<li>Write a Python program that uses BeautifulSoup to scrape data from a website and generates a report showing the top results.</li>
+<li>Write a Python program that uses BeautifulSoup to scrape data from a website and performs sentiment analysis on the results.</li>
+<li>Write a Python program that uses BeautifulSoup to scrape data from a website and generates a word cloud from the results.</li>
+</ol>
+<h2 id="day-19-data-visualization-with-matplotlib">Day 19: Data Visualization with Matplotlib</h2>
+<ul>
+<li>Learn about data visualization in Python using the Matplotlib library</li>
+<li>Practice data visualization with 10 programming exercises</li>
+</ul>
+<h3 id="difficult-tasks">Difficult Tasks:</h3>
+<ol>
+<li>Write a Python program that uses Matplotlib to visualize data from a CSV file, displaying it as a bar chart or line chart.</li>
+<li>Write a Python program that uses Matplotlib to visualize data from a database, displaying it as a scatter plot or bubble chart.</li>
+<li>Write a Python program that uses Matplotlib to visualize data from a web API, displaying it as a heatmap or choropleth map.</li>
+<li>Write a Python program that uses Matplotlib to create interactive visualizations, allowing users to explore and interact with data.</li>
+<li>Write a Python program that uses Matplotlib to create animated visualizations, showing changes over time or in response to user input.</li>
+</ol>
+<h2 id="day-20-final-project">Day 20: Final Project</h2>
+<ul>
+<li>Create a final project that incorporates all the topics covered in the previous 19 days, including OOP, file handling, regular expressions, error handling, multithreading, multiprocessing, networking, web development, web scraping, and data visualization.</li>
+<li>This project should be a fully functional application that demonstrates your skills and understanding of Python.</li>
+</ul>
+<p>Difficult Tasks:</p>
+<ol>
+<li>Write a Python program that creates a web application that allows users to upload and analyze data files using regular expressions and data visualization.</li>
+<li>Write a Python program that uses multithreading and multiprocessing to process and analyze large datasets in real-time, displaying results using data visualization.</li>
+<li>Write a Python program that creates a networked application that allows users to collaborate on a real-time data analysis project using web scraping and data visualization.</li>
+<li>Write a Python program that uses OOP to create a machine learning model that can analyze and classify data, and then displays the results using data visualization.</li>
+<li>Write a Python program that uses all the concepts covered in the previous 19 days to create a complex and robust application that solves a real-world problem, such as fraud detection or predictive maintenance.</li>
+</ol>
+
+</body>
+</html>
